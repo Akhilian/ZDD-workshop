@@ -11,10 +11,15 @@ resource "heroku_app" "api-server" {
   region = "eu"
 }
 
-resource "heroku_build" "api-server" {
-  app = heroku_app.api-server.name
-  buildpacks = ["https://github.com/heroku/heroku-buildpack-python"]
+# resource "heroku_build" "api-server" {
+#   app = heroku_app.api-server.name
+#   buildpacks = ["https://github.com/heroku/heroku-buildpack-python"]
 
-  #source = {
-  #}
+#   #source = {
+#   #}
+# }
+
+
+output "api-server-url" {
+  value = "https://${heroku_app.api-server.name}.herokuapp.com"
 }
