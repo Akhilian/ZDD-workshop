@@ -11,13 +11,15 @@ resource "heroku_app" "api-server" {
   region = "eu"
 }
 
-# resource "heroku_build" "api-server" {
-#   app = heroku_app.api-server.name
-#   buildpacks = ["https://github.com/heroku/heroku-buildpack-python"]
+ resource "heroku_build" "api-server" {
+   app = heroku_app.api-server.name
+   buildpacks = ["https://github.com/heroku/heroku-buildpack-python"]
 
-#   #source = {
-#   #}
-# }
+   source = {
+     url      = "https://github.com/Akhilian/ZDD-workshop/archive/v0.2.0.tar.gz"
+     version  = "v0.2.0"
+   }
+ }
 
 
 output "api-server-url" {
