@@ -9,6 +9,7 @@ api.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(api)
 
+
 @api.route("/")
 def hello():
     return "Hello World (again) from Flask in a uWSGI Nginx Docker container with \

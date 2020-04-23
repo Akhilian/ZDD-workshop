@@ -15,7 +15,12 @@ services:
       - 'RUN=flask run --host=0.0.0.0 --port=80'
     command: >
       bash -c "pip install -r ./requirements.txt;
-               flask run --host=0.0.0.0 --port=80;"
+              
+              echo -e '\n\n--------- DATABASE MIGRATION ---------';
+              PYTHONPATH=. alembic upgrade head;
+              echo -e '--------- END OF DATABASE MIGRATION ---------\n\n';
+
+              flask run --host=0.0.0.0 --port=80;"
     # Infinite loop, to keep it alive, for debugging
     # command: bash -c "while true; do echo 'sleeping...' && sleep 10; done"
 
