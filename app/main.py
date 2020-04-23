@@ -1,18 +1,18 @@
 from flask import Flask
 
-app = Flask(__name__)
+api = Flask(__name__)
 
 
-@app.route("/")
+@api.route("/")
 def hello():
-    return "Hello World from Flask in a uWSGI Nginx Docker container with \
+    return "Hello World (again) from Flask in a uWSGI Nginx Docker container with \
      Python 3.7 (from the example template)"
 
-@app.route("/status")
+@api.route("/status")
 def status_page():
-    return "UP"
+    return "UP - Running"
 
 
 if __name__ == "__main__":
     # Only for debugging while developing
-    app.run(host="0.0.0.0", debug=True, port=80)
+    api.run(host="0.0.0.0", debug=True, port=80, use_reloader=True)
