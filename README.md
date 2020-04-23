@@ -33,3 +33,5 @@ Une BDD postgres
 Il est possible (et recommandé) de lancer l'application en local pour prendre connaissance du contexte, et d'effectuer des modifications sur son poste avant d'envoyer le code en production.
 
 ```docker-compose up```
+
+PYTHONPATH=. alembic
