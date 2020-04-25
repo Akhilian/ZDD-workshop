@@ -1,6 +1,5 @@
-import pytest
-
-from application.PlaneModel import PlaneModel
+from application.models.PlaneModel import PlaneModel
+from business.entities import Plane
 from infrastructure.datasource import PlaneDatasource
 
 
@@ -28,3 +27,4 @@ class PlaneDatasourceTest():
 
             # Then
             assert len(planes) == 1
+            assert isinstance(planes[0], Plane)
