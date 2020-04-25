@@ -38,6 +38,7 @@ def run_migrations_offline():
     script output.
 
     """
+    print('LA')
     url = os.environ.get('DATABASE_URI')
     print(os.environ.get('DATABASE_URI'))
     context.configure(
@@ -58,13 +59,10 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = create_engine(os.environ.get('DATABASE_URI'))
-
-    # connectable = engine_from_config(
-    #     config.get_section(config.config_ini_section),
-    #     prefix="sqlalchemy.",
-    #     poolclass=pool.NullPool,
-    # )
+    if 'sqlalchemy.url' in config.attributes:
+        connectable = create_engine(config.attributes['sqlalchemy.url'])
+    else:
+        connectable = create_engine(os.environ.get('DATABASE_URI'))
 
     with connectable.connect() as connection:
         context.configure(
