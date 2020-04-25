@@ -5,15 +5,17 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from testcontainers.postgres import PostgresContainer
 
+from application.api import api
+
 Session = sessionmaker()
 
 target_metadata = None
+
 
 @pytest.fixture(scope='session')
 def use_container_engine():
     postgres_container = PostgresContainer("postgres:10.12")
     with postgres_container as postgres:
-
         engine = create_engine(postgres.get_connection_url())
 
         with engine.connect() as connection:
@@ -24,6 +26,7 @@ def use_container_engine():
             yield connection
             connection.close()
 
+
 @pytest.fixture(scope='function')
 def database_session(use_container_engine):
     transaction = use_container_engine.begin()
@@ -33,3 +36,10 @@ def database_session(use_container_engine):
 
     session.close()
     transaction.rollback()
+
+
+@pytest.fixture(scope='session')
+def http_client():
+    api.config['TESTING'] = True
+    with api.test_client() as http_client:
+        return http_client
