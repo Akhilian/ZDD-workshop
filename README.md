@@ -34,4 +34,10 @@ Il est possible (et recommandé) de lancer l'application en local pour prendre c
 
 ```docker-compose up```
 
-PYTHONPATH=. alembic
+
+alembic
+
+<!-- Lancer les tests: `docker exec -it api bash` -->
+
+Lancer les tests depuis le répertoire /app
+`PYTHONPATH=. py.test`
