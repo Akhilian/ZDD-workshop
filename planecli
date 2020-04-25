@@ -1,0 +1,10 @@
+#!/bin/bash
+source ./scripts/constants.sh
+
+case $1 in
+    'alembic') . ./scripts/alembic.sh;;
+    'start') . ./scripts/start.sh;;
+    'stop') . ./scripts/stop.sh;;
+    '--help') . ./scripts/help.sh $HELP_WITHOUT_ERROR_MESSAGE;;
+    *) . ./scripts/help.sh $HELP_WITH_ERROR_MESSAGE;;
+esac
