@@ -1,5 +1,7 @@
 # Atelier ZDD
 
+[![Build Status](https://travis-ci.org/Akhilian/ZDD-workshop.svg?branch=master)](https://travis-ci.org/Akhilian/ZDD-workshop)
+
 ## Contexte
 
 Depuis quelques mois, vous êtes responsable de maintenir et d'enrichir une API public qui permet de consulter **"DEFINIR LR THEME"**.
