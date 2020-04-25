@@ -1,10 +1,9 @@
 import pytest
 from alembic import command
-from alembic.config import Config as AlembicConfig, Config
+from alembic.config import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from testcontainers.postgres import PostgresContainer
-
 
 Session = sessionmaker()
 
