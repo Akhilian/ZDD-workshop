@@ -1,9 +1,12 @@
-from sqlalchemy import Integer, Column
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Integer, Column, ForeignKey
+from sqlalchemy.orm import relationship
+from application.connection import Base
 
-Base = declarative_base()
 
 class PlaneModel(Base):
     __tablename__ = 'planes'
     id = Column(Integer, primary_key=True)
     places = Column(Integer, nullable=True)
+
+    planeIdentifierId = Column(Integer, ForeignKey('identifier.id'), nullable=False)
+    identifier = relationship("IdentifierModel", back_populates="plane")

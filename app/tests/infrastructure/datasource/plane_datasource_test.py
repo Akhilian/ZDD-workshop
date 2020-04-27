@@ -1,4 +1,5 @@
-from application.models.PlaneModel import PlaneModel
+from application.models import PlaneModel
+from application.models.IdentifierModel import IdentifierModel
 from business.entities import Plane
 from infrastructure.datasource import PlaneDatasource
 
@@ -15,11 +16,17 @@ class PlaneDatasourceTest():
             # Then
             assert len(planes) == 0
 
-        def test_should_every_registered_planed(self, database_session):
+        def test_should_return_every_registered_planed(self, database_session):
             # Given
+            identifier_model = IdentifierModel()
+            identifier_model.code = 'FDY-198'
+            database_session.add(identifier_model)
+
             plane_model = PlaneModel()
             plane_model.places = 145
+            plane_model.identifier = identifier_model
             database_session.add(plane_model)
+
             plane_datasource = PlaneDatasource(session=database_session)
 
             # When
@@ -28,3 +35,7 @@ class PlaneDatasourceTest():
             # Then
             assert len(planes) == 1
             assert isinstance(planes[0], Plane)
+
+            plane = planes[0]
+            assert plane.number_of_places == 145
+            assert plane.identifier.code == 'FDY-198'

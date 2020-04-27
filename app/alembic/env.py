@@ -38,9 +38,7 @@ def run_migrations_offline():
     script output.
 
     """
-    print('LA')
     url = os.environ.get('DATABASE_URI')
-    print(os.environ.get('DATABASE_URI'))
     context.configure(
         url=url,
         target_metadata=target_metadata,

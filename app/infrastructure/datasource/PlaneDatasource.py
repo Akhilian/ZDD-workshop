@@ -12,6 +12,6 @@ class PlaneDatasource(PlaneRepository):
     def get_all_planes(self) -> List[Plane]:
         planes = self.session.query(PlaneModel).all()
         return [
-            Plane(identifier=PlaneIdentifier(plane.id), number_of_places=plane.places)
+            Plane(identifier=PlaneIdentifier(plane.identifier.code), number_of_places=plane.places)
             for plane in planes
         ]
