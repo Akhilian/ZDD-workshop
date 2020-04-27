@@ -25,21 +25,39 @@ Grâce à vos efforts, et l'appui de quelques sponsors, cette API connait un suc
 
 ## Architecture applicative
 
+### Description technique
+
 Une API
   - Python / Flask
 
 Une BDD postgres
   - Postgres 10.12
 
-### Outils
+Images (pour le dev local)
+  - Docker (v19.03.8)
+    
+
+### Outils et commandes
 Il est possible (et recommandé) de lancer l'application en local pour prendre connaissance du contexte, et d'effectuer des modifications sur son poste avant d'envoyer le code en production.
 
-```docker-compose up```
+**Lancer l'application en local**
 
+    docker-compose up
 
-alembic
+**Se connecter au conteneur de l'API**
 
-<!-- Lancer les tests: `docker exec -it api bash` -->
+    docker exec -it api bash
 
-Lancer les tests depuis le répertoire /app
-`PYTHONPATH=. py.test`
+**Consulter les migrations de schema**
+    
+    docker exec -it api alembic history
+
+**Créer une nouvelle migration**
+
+    docker exec -it api alembic revision -m "NOM_DE_LA_REVISION"
+
+**Lancer les tests en local**
+
+Dans le répertoire `app/`
+
+    PYTHONPATH=. py.test
