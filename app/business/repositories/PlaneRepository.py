@@ -6,4 +6,7 @@ from ..entities import Plane
 
 class PlaneRepository(Repository):
     def get_all_planes(self) -> List[Plane]:
-        pass
+        raise NotImplementedError
+
+    def get_one_plane(self) -> Plane:
+        raise NotImplementedError

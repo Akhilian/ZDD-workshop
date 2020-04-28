@@ -5,8 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from testcontainers.postgres import PostgresContainer
 
-from application.api import api
-from application.connection import db
+from presentation.api import api
+from presentation.connection import db
 
 Session = sessionmaker()
 

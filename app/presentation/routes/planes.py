@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify
 
-from application.connection import db
+from presentation.connection import db
 from business.interactors import list_all_available_planes
 from infrastructure.datasource import PlaneDatasource
-from infrastructure.transport import PlaneSerializer
+from presentation.transport import PlaneSerializer
 
 planes = Blueprint('plane_api', __name__, url_prefix='/')
 

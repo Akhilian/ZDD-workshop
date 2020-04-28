@@ -1,5 +1,5 @@
-from application.models import PlaneModel
-from application.models.IdentifierModel import IdentifierModel
+from infrastructure.models import PlaneModel
+from infrastructure.models.IdentifierModel import IdentifierModel
 from business.entities import Plane
 from infrastructure.datasource import PlaneDatasource
 

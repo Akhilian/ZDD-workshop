@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, Column, ForeignKey
 from sqlalchemy.orm import relationship
-from application.connection import Base
+from presentation.connection import Base
 
 
 class PlaneModel(Base):
