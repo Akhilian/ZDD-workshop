@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, Column, String
 from sqlalchemy.orm import relationship
 
-from application.connection import Base
+from presentation.connection import Base
 
 
 class IdentifierModel(Base):

@@ -1,6 +1,6 @@
-from application.connection import db
-from application.models import IdentifierModel
-from application.models.PlaneModel import PlaneModel
+from presentation.connection import db
+from infrastructure.models import IdentifierModel
+from infrastructure.models.PlaneModel import PlaneModel
 
 
 class GetAllPlanesTest:

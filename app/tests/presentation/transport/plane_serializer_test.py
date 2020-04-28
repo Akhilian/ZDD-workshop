@@ -1,5 +1,5 @@
 from business.entities import Plane, PlaneIdentifier
-from infrastructure.transport import PlaneSerializer
+from presentation.transport import PlaneSerializer
 
 
 class PlaneSerializerTest:

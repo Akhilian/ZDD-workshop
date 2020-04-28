@@ -17,5 +17,4 @@ class ListAllAvailablePlanesTest():
         returned_planes = list_all_available_planes(plane_repository=plane_repository)
 
         # Then
-        plane_repository.get_all_planes.assert_called_once()
         assert returned_planes == planes

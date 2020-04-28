@@ -1,9 +1,9 @@
 import os
 from flask import Flask
 
-from application.connection import db
-from application.routes.healthcheck import healthcheck
-from application.routes.planes import planes
+from presentation.connection import db
+from presentation.routes.healthcheck import healthcheck
+from presentation.routes.planes import planes
 
 api = Flask(__name__)
 

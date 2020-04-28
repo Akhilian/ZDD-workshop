@@ -1,6 +1,6 @@
 from typing import List
 
-from application.models.PlaneModel import PlaneModel
+from infrastructure.models.PlaneModel import PlaneModel
 from business.entities import Plane, PlaneIdentifier
 from business.repositories import PlaneRepository
 
