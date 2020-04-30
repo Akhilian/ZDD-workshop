@@ -1,6 +1,6 @@
 from infrastructure.models import PlaneModel
 from infrastructure.models.IdentifierModel import IdentifierModel
-from business.entities import Plane
+from business.entities import Plane, PlaneIdentifier
 from infrastructure.datasource import PlaneDatasource
 
 
@@ -39,3 +39,17 @@ class PlaneDatasourceTest():
             plane = planes[0]
             assert plane.number_of_places == 145
             assert plane.identifier.code == 'FDY-198'
+
+    class AddNewPlaneTest():
+        def test_should_save_the_plane_in_the_database(self, database_session):
+            # Given
+            plane = Plane(identifier=PlaneIdentifier('GAF-531'), number_of_places=145)
+
+            plane_datasource = PlaneDatasource(database_session)
+
+            # When
+            plane_datasource.add_new_plane(plane=plane)
+
+            # Then
+            assert database_session.query(PlaneModel).count() == 1
+            assert database_session.query(IdentifierModel).count() == 1

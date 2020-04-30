@@ -1,5 +1,6 @@
 from typing import List
 
+from infrastructure.models import IdentifierModel
 from infrastructure.models.PlaneModel import PlaneModel
 from business.entities import Plane, PlaneIdentifier
 from business.repositories import PlaneRepository
@@ -15,3 +16,12 @@ class PlaneDatasource(PlaneRepository):
             Plane(identifier=PlaneIdentifier(plane.identifier.code), number_of_places=plane.places)
             for plane in planes
         ]
+
+    def add_new_plane(self, plane: Plane) -> None:
+        plane_model = PlaneModel()
+        plane_model.places = plane.number_of_places
+        plane_model.identifier = IdentifierModel()
+        plane_model.identifier.code = plane.identifier.code
+
+        self.session.add(plane_model)
+        self.session.commit()
