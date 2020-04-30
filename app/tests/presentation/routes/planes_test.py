@@ -38,3 +38,23 @@ class GetAllPlanesTest:
         # Then
         assert response.status_code == 200
         assert len(response.json) == 0
+
+class RegisterAPlaneTest:
+    def test_when_sending_an_new_plane_to_track(self, end_to_end):
+        # When
+        response = end_to_end.post('/planes', json={
+            'identifier.code': 'BAF-151',
+            'number_of_places': 900
+        })
+
+        # Then
+        assert response.status_code == 200
+        assert len(response.json) == 1
+        assert response.json == [
+            {
+                'identifier': {
+                    'code': 'BAF-151'
+                },
+                'number_of_places': 900
+            }
+        ]

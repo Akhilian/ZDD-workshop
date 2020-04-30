@@ -42,3 +42,20 @@ class PlaneSerializerTest:
                     'number_of_places': 46
                 }
             ]
+
+    class TromJsonTest:
+        def test_should_return_a_plane(self):
+            # Given
+            data = {
+                'identifier.code': 'CGS-578',
+                'number_of_places': 900
+            }
+
+            # When
+            plane = PlaneSerializer.from_json(data)
+
+            # Then
+            assert isinstance(plane, Plane)
+            assert plane.number_of_places == 900
+            assert isinstance(plane.identifier, PlaneIdentifier)
+            assert plane.identifier.code == 'CGS-578'

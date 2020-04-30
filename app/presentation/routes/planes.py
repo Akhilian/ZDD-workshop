@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
+from business.interactors.register_new_plane import register_new_plane
 from presentation.connection import db
 from business.interactors import list_all_available_planes
 from infrastructure.datasource import PlaneDatasource
@@ -14,3 +15,14 @@ def get_all_planes():
     planes = list_all_available_planes(plane_repository=plane_datasource)
 
     return jsonify(PlaneSerializer.to_json(planes))
+
+
+@planes.route("/planes", methods=['POST'])
+def add_a_plane():
+    plane_datasource = PlaneDatasource(session=db.session)
+
+    plane = PlaneSerializer.from_json(request.json)
+
+    register_new_plane(plane=plane, plane_repository=plane_datasource)
+
+    return jsonify([PlaneSerializer.to_json(plane)])
