@@ -50,6 +50,9 @@ Il est possible (et recommandé) de lancer l'application en local pour prendre c
 
 Une description des endpoints et de comment les utiliser est disponible pour le logiciel [Insomnia](https://insomnia.rest/) via le fichier `.json` éponyme.
 
+**Manipuler les migrations**
+
+🗞 Les commandes pour manipuler les migrations sont dans le fichier README du répertoire [app/alembic/](app/alembic/README.md), l'outil de migration utilisé par cette application.
 
 **Lancer l'application en local**
 
@@ -58,14 +61,6 @@ Une description des endpoints et de comment les utiliser est disponible pour le 
 **Se connecter au conteneur de l'API**
 
     docker exec -it api bash
-
-**Consulter les migrations de schema**
-    
-    docker exec -it api alembic history
-
-**Créer une nouvelle migration**
-
-    docker exec -it api alembic revision -m "NOM_DE_LA_REVISION"
 
 **Lancer les tests en local**
 
