@@ -1,9 +1,10 @@
 from typing import List
 
-from infrastructure.models import IdentifierModel
+from business.entities.Plane import Plane
+from business.entities.PlaneIdentifier import PlaneIdentifier
+from business.repositories.PlaneRepository import PlaneRepository
+from infrastructure.models.IdentifierModel import IdentifierModel
 from infrastructure.models.PlaneModel import PlaneModel
-from business.entities import Plane, PlaneIdentifier
-from business.repositories import PlaneRepository
 
 
 class PlaneDatasource(PlaneRepository):

@@ -1,7 +1,7 @@
 from typing import List
 
-from .Repository import Repository
-from ..entities import Plane
+from business.entities.Plane import Plane
+from business.repositories.Repository import Repository
 
 
 class PlaneRepository(Repository):

@@ -1,7 +1,8 @@
-from infrastructure.models import PlaneModel
+from business.entities.Plane import Plane
+from business.entities.PlaneIdentifier import PlaneIdentifier
+from infrastructure.datasource.PlaneDatasource import PlaneDatasource
 from infrastructure.models.IdentifierModel import IdentifierModel
-from business.entities import Plane, PlaneIdentifier
-from infrastructure.datasource import PlaneDatasource
+from infrastructure.models.PlaneModel import PlaneModel
 
 
 class PlaneDatasourceTest():

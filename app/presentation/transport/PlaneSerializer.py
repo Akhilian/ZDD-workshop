@@ -1,5 +1,7 @@
 from typing import Union, List
-from business.entities import Plane, PlaneIdentifier
+
+from business.entities.Plane import Plane
+from business.entities.PlaneIdentifier import PlaneIdentifier
 
 
 def _to_dict(object):

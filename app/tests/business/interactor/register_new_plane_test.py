@@ -1,9 +1,9 @@
 from unittest.mock import Mock
 
-from business.entities import Plane, PlaneIdentifier
-from business.interactors import list_all_available_planes
+from business.entities.Plane import Plane
+from business.entities.PlaneIdentifier import PlaneIdentifier
 from business.interactors.register_new_plane import register_new_plane
-from business.repositories import PlaneRepository
+from business.repositories.PlaneRepository import PlaneRepository
 
 
 class RegisterNewPlaneTest():
