@@ -10,3 +10,4 @@ class PlaneModel(Base):
 
     planeIdentifierId = Column(Integer, ForeignKey('identifier.id'), nullable=False)
     identifier = relationship("IdentifierModel", back_populates="plane")
+    flight = relationship("FlightModel", uselist=False, back_populates="plane")
