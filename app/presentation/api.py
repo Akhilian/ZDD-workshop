@@ -2,6 +2,7 @@ import os
 from flask import Flask
 
 from presentation.connection import db
+from presentation.routes.flights import flights
 from presentation.routes.healthcheck import healthcheck
 from presentation.routes.planes import planes
 
@@ -13,4 +14,5 @@ api.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(api)
 
 api.register_blueprint(planes)
+api.register_blueprint(flights)
 api.register_blueprint(healthcheck)

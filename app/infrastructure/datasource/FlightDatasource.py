@@ -12,6 +12,10 @@ class FlightDatasource():
         flights = self.session.query(FlightModel).all()
 
         return [
-            Flight(status=flight.status)
+            Flight(
+                status=flight.status,
+                duration=flight.duration,
+                start_time=flight.start_time
+            )
             for flight in flights
         ]
