@@ -1,7 +1,7 @@
 from typing import List
 
-from business.entities import Plane
-from business.repositories import PlaneRepository
+from business.entities.Plane import Plane
+from business.repositories.PlaneRepository import PlaneRepository
 
 
 def list_all_available_planes(plane_repository: PlaneRepository) -> List[Plane]:
