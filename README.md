@@ -17,6 +17,15 @@ Depuis quelques mois, vous êtes responsable de maintenir et d'enrichir une API 
   - GPS
   - Altitude
 
+### Règles métier
+
+- Un avion a un identifiant unique
+- Un vol relie deux aéroports
+    - Il n'y a pas toujours un avion affecté à ce vol
+    - Le vol a un status qui peut avoir des valeurs différentes
+        - ongoing : Le vol est en cours
+
+
 Grâce à vos efforts, et l'appui de quelques sponsors, cette API connait un succès grandissant et le nombre de vos utilisateurs - et donc le nombre de requêtes - ne cesse de grandir. Ce qui était un petit projet aux ambitions modestes doit maintenant continuer à évoluer tout en assurant une disponibilité maximale.
 
 ## Requirements
@@ -67,3 +76,7 @@ Une description des endpoints et de comment les utiliser est disponible pour le 
 Dans le répertoire `app/`
 
     PYTHONPATH=. py.test --durations=0
+
+**Se connecter à la base de données en commande**
+
+    docker exec -it database psql -U postgres
