@@ -9,4 +9,9 @@ resource "aws_db_instance" "database" {
   username             = "captain"
   password             = "captainsully"
   parameter_group_name = "default.postgres10"
+  skip_final_snapshot  = true
+}
+
+output "database_endpoint" {
+  value = aws_db_instance.database.endpoint
 }
