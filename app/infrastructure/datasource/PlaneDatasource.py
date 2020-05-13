@@ -1,4 +1,5 @@
-from typing import List
+from typing import List, \
+    Union
 
 from business.entities.Plane import Plane
 from business.entities.PlaneIdentifier import PlaneIdentifier
@@ -26,3 +27,15 @@ class PlaneDatasource(PlaneRepository):
 
         self.session.add(plane_model)
         self.session.commit()
+
+    def get_one_plane(self, identifier: PlaneIdentifier) -> Union[Plane, None]:
+        plane = self.session.query(PlaneModel).join(PlaneModel.identifier).filter(
+            IdentifierModel.code == identifier.code).first()
+
+        if not plane:
+            return None
+
+        return Plane(
+            identifier=PlaneIdentifier(plane.identifier.code),
+            number_of_places=plane.places
+        )

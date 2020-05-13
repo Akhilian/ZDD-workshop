@@ -54,3 +54,47 @@ class PlaneDatasourceTest():
             # Then
             assert database_session.query(PlaneModel).count() == 1
             assert database_session.query(IdentifierModel).count() == 1
+
+    class GetOnePlaneTest():
+        def test_should_return_nothing_when_plane_is_not_found(self, database_session):
+            # Given
+            identifier_model = IdentifierModel()
+            identifier_model.code = 'GDU-156'
+            database_session.add(identifier_model)
+
+            plane_model = PlaneModel()
+            plane_model.places = 145
+            plane_model.identifier = identifier_model
+            database_session.add(plane_model)
+
+            plane_datasource = PlaneDatasource(session=database_session)
+
+            # When
+            plane = plane_datasource.get_one_plane(
+                identifier=PlaneIdentifier(identifier='FDY-198')
+            )
+
+            # Then
+            assert plane is None
+
+        def test_should_return_the_searched_plane(self, database_session):
+            # Given
+            identifier_model = IdentifierModel()
+            identifier_model.code = 'FDY-198'
+            database_session.add(identifier_model)
+
+            plane_model = PlaneModel()
+            plane_model.places = 425
+            plane_model.identifier = identifier_model
+            database_session.add(plane_model)
+
+            plane_datasource = PlaneDatasource(session=database_session)
+
+            # When
+            plane = plane_datasource.get_one_plane(identifier=PlaneIdentifier(identifier='FDY-198'))
+
+            # Then
+            assert plane
+            assert isinstance(plane, Plane)
+            assert plane.number_of_places is 425
+            assert plane.identifier.code is 'FDY-198'
