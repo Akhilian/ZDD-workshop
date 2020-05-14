@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from business.entities.Flight import Flight
+from business.entities.Identifier import Identifier
 from presentation.transport.FlightSerializer import FlightSerializer
 
 
@@ -11,7 +12,8 @@ class FlightSerializerTest:
             flight = Flight(
                 status='ongoing',
                 duration=267,
-                start_time=datetime(2020, 4, 5, 15, 25, 16)
+                start_time=datetime(2020, 4, 5, 15, 25, 16),
+                identifier=Identifier('0937')
             )
 
             # When
@@ -21,7 +23,8 @@ class FlightSerializerTest:
             assert json == {
                 'status': 'ongoing',
                 'duration': 267,
-                'start_time': '2020-04-05T15:25:16'
+                'start_time': '2020-04-05T15:25:16',
+                'identifier': '0937'
             }
 
         def test_should_serialize_even_an_array(self):
@@ -29,7 +32,8 @@ class FlightSerializerTest:
             flights = [Flight(
                 status='ongoing',
                 duration=267,
-                start_time=datetime(2020, 4, 5, 15, 25, 16)
+                start_time=datetime(2020, 4, 5, 15, 25, 16),
+                identifier=Identifier('0937')
             )]
 
             # When
@@ -39,5 +43,6 @@ class FlightSerializerTest:
             assert json == [{
                 'status': 'ongoing',
                 'duration': 267,
-                'start_time': '2020-04-05T15:25:16'
+                'start_time': '2020-04-05T15:25:16',
+                'identifier': '0937'
             }]

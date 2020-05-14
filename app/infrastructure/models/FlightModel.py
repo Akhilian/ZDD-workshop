@@ -7,6 +7,7 @@ class FlightModel(Base):
     __tablename__ = 'flights'
     id = Column(Integer, primary_key=True)
 
+    identifier = Column(String, nullable=False)
     start_time = Column(DateTime, nullable=True)
     duration = Column(Integer, nullable=True)
     status = Column(String, nullable=False)

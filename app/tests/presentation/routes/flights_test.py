@@ -15,6 +15,7 @@ class GetAllFlightsTest:
         flight_model.start_time = datetime.now()
         flight_model.duration = 257
         flight_model.status = 'ongoing'
+        flight_model.identifier = 'G2VH'
         db.session.add(flight_model)
 
         # When
@@ -27,7 +28,8 @@ class GetAllFlightsTest:
             {
                 'start_time': '2019-02-05T00:00:00',
                 'duration': 257,
-                'status': 'ongoing'
+                'status': 'ongoing',
+                'identifier': 'G2VH',
             }
         ]
 
