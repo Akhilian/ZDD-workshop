@@ -3,6 +3,7 @@ from typing import List, \
 
 from business.entities.Flight import Flight
 from business.entities.Identifier import Identifier
+from business.entities.Plane import Plane
 from business.entities.Position import Position
 from business.repositories.Repository import Repository
 
@@ -15,4 +16,7 @@ class FlightRepository(Repository):
         raise NotImplementedError
 
     def save_new_position(self, flight: Flight, position: Position) -> None:
+        raise NotImplementedError
+
+    def save_new_flight(self, flight: Flight, plane: Plane) -> None:
         raise NotImplementedError

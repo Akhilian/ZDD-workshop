@@ -3,6 +3,8 @@ from datetime import datetime
 from freezegun import freeze_time
 
 from infrastructure.models.FlightModel import FlightModel
+from infrastructure.models.IdentifierModel import IdentifierModel
+from infrastructure.models.PlaneModel import PlaneModel
 from presentation.connection import db
 
 
@@ -41,3 +43,44 @@ class GetAllFlightsTest:
         # Then
         assert response.status_code == 200
         assert len(response.json) == 0
+
+class DeclareNewFlightTest:
+    @freeze_time("2020-01-25")
+    def test_return_400_when_plane_is_not_found(self, end_to_end):
+        # Given
+        flight = {
+            "status": 'ongoing',
+            "duration": 2456,
+            "start_time": datetime.now(),
+            "identifier": 'FAA-331'
+        }
+
+        # When
+        response = end_to_end.post('/planes/GYSU/flights', json=flight)
+
+        # Then
+        assert response.status_code == 400
+
+    @freeze_time("2020-01-25")
+    def test_return_200_when_flight_is_created(self, end_to_end):
+        # Given
+        identifier = IdentifierModel()
+        identifier.code = 'GYSU'
+
+        plane_model = PlaneModel()
+        plane_model.places = 145
+        plane_model.identifier = identifier
+        db.session.add(plane_model)
+
+        flight = {
+            "status": 'ongoing',
+            "duration": 2456,
+            "start_time": datetime.now(),
+            "identifier": 'FAA-331'
+        }
+
+        # When
+        response = end_to_end.post('/planes/GYSU/flights', json=flight)
+
+        # Then
+        assert response.status_code == 200

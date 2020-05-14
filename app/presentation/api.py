@@ -14,6 +14,12 @@ api.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(api)
 
+
+@api.teardown_request
+def teardown_request(exception):
+    db.session.commit()
+
+
 api.register_blueprint(planes)
 api.register_blueprint(flights)
 api.register_blueprint(healthcheck)

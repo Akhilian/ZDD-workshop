@@ -4,9 +4,13 @@ from freezegun import freeze_time
 
 from business.entities.Flight import Flight
 from business.entities.Identifier import Identifier
+from business.entities.Plane import Plane
+from business.entities.PlaneIdentifier import PlaneIdentifier
 from business.entities.Position import Position
 from infrastructure.datasource.FlightDatasource import FlightDatasource
 from infrastructure.models.FlightModel import FlightModel
+from infrastructure.models.IdentifierModel import IdentifierModel
+from infrastructure.models.PlaneModel import PlaneModel
 from infrastructure.models.PositionModel import PositionModel
 
 
@@ -123,3 +127,36 @@ class FlightDatasourceTest():
             position = flight.positions.pop()
             assert position.latitude == 40.714
             assert position.longitude == -74.006
+
+    class SaveNewFlightTest():
+        def test_save_flight_when_plane_exists(self, database_session):
+            # Given
+            identifier_model = IdentifierModel()
+            identifier_model.code = 'FDY-198'
+            database_session.add(identifier_model)
+
+            plane_model = PlaneModel()
+            plane_model.places = 145
+            plane_model.identifier = identifier_model
+            database_session.add(plane_model)
+
+            flight = Flight(
+                identifier=Identifier('2VG5'),
+                status='ongoing',
+                start_time=datetime.now(),
+                duration=937
+            )
+            plane = Plane(
+                identifier=PlaneIdentifier('FDY-198'),
+                number_of_places=23
+            )
+
+            flight_datasource = FlightDatasource(database_session)
+
+            # When
+            flight_datasource.save_new_flight(flight, plane)
+
+            # Then
+            assert database_session.query(FlightModel).count() == 1
+            saved_flight = database_session.query(FlightModel).first()
+            assert saved_flight.plane.identifier.code == 'FDY-198'

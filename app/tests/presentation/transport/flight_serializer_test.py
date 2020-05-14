@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from freezegun import freeze_time
+
 from business.entities.Flight import Flight
 from business.entities.Identifier import Identifier
 from presentation.transport.FlightSerializer import FlightSerializer
@@ -46,3 +48,25 @@ class FlightSerializerTest:
                 'start_time': '2020-04-05T15:25:16',
                 'identifier': '0937'
             }]
+
+    class FromJsonTest:
+        @freeze_time("2020-04-13")
+        def test_should_turn_payload_to_Flight(self):
+            # Given
+            payload = {
+                "status": 'ongoing',
+                "duration": 2456,
+                "start_time": datetime.now(),
+                "identifier": 'FAA-331'
+            }
+
+            # When
+            flight = FlightSerializer.from_json(payload)
+
+            # Then
+            assert isinstance(flight, Flight)
+            assert isinstance(flight.identifier, Identifier)
+            assert flight.status == 'ongoing'
+            assert flight.duration == 2456
+            assert flight.start_time == datetime.now()
+            assert flight.identifier.value == 'FAA-331'

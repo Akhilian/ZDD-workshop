@@ -26,7 +26,7 @@ class PlaneDatasource(PlaneRepository):
         plane_model.identifier.code = plane.identifier.code
 
         self.session.add(plane_model)
-        self.session.commit()
+        # self.session.commit()
 
     def get_one_plane(self, identifier: PlaneIdentifier) -> Union[Plane, None]:
         plane = self.session.query(PlaneModel).join(PlaneModel.identifier).filter(
