@@ -14,3 +14,5 @@ class FlightModel(Base):
 
     planeId = Column(Integer, ForeignKey('planes.id'), nullable=True)
     plane = relationship("PlaneModel", back_populates="flight")
+
+    positions = relationship("PositionModel", back_populates="flight")

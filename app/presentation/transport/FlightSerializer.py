@@ -7,5 +7,5 @@ from presentation.transport.ToDictSerializer import _to_dict
 
 class FlightSerializer():
     @staticmethod
-    def to_json(plane: Union[Flight, List[Flight]]) -> dict:
-        return _to_dict(plane)
+    def to_json(flight: Union[Flight, List[Flight]]) -> dict:
+        return _to_dict(flight)

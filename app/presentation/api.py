@@ -5,6 +5,7 @@ from presentation.connection import db
 from presentation.routes.flights import flights
 from presentation.routes.healthcheck import healthcheck
 from presentation.routes.planes import planes
+from presentation.routes.positions import position
 
 api = Flask(__name__)
 
@@ -16,3 +17,4 @@ db.init_app(api)
 api.register_blueprint(planes)
 api.register_blueprint(flights)
 api.register_blueprint(healthcheck)
+api.register_blueprint(position)

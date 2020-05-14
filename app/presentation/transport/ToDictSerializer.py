@@ -13,7 +13,7 @@ def _to_dict(object):
             if isinstance(attributes[key], datetime):
                 attributes[key] = attributes[key].isoformat()
             if isinstance(attributes[key], Identifier):
-                attributes[key] = repr(attributes[key])
+                attributes[key] = attributes[key].value
             elif hasattr(attributes[key], '__dict__'):
                 attributes[key] = _to_dict(attributes[key])
 
