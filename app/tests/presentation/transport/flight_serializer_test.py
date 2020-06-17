@@ -4,6 +4,7 @@ from freezegun import freeze_time
 
 from business.entities.Flight import Flight
 from business.entities.Identifier import Identifier
+from business.entities.Position import Position
 from presentation.transport.FlightSerializer import FlightSerializer
 
 
@@ -15,7 +16,8 @@ class FlightSerializerTest:
                 status='ongoing',
                 duration=267,
                 start_time=datetime(2020, 4, 5, 15, 25, 16),
-                identifier=Identifier('0937')
+                identifier=Identifier('0937'),
+                position=None
             )
 
             # When
@@ -26,7 +28,8 @@ class FlightSerializerTest:
                 'status': 'ongoing',
                 'duration': 267,
                 'start_time': '2020-04-05T15:25:16',
-                'identifier': '0937'
+                'identifier': '0937',
+                'position': None
             }
 
         def test_should_serialize_even_an_array(self):
@@ -35,7 +38,8 @@ class FlightSerializerTest:
                 status='ongoing',
                 duration=267,
                 start_time=datetime(2020, 4, 5, 15, 25, 16),
-                identifier=Identifier('0937')
+                identifier=Identifier('0937'),
+                position=Position(latitude=15.4156, longitude=54.2567)
             )]
 
             # When
@@ -46,7 +50,11 @@ class FlightSerializerTest:
                 'status': 'ongoing',
                 'duration': 267,
                 'start_time': '2020-04-05T15:25:16',
-                'identifier': '0937'
+                'identifier': '0937',
+                'position': {
+                    'latitude': 15.4156,
+                    'longitude': 54.2567
+                }
             }]
 
     class FromJsonTest:

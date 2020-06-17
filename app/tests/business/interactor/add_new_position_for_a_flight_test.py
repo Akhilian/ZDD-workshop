@@ -32,7 +32,8 @@ class AddNewPositionForAFlightTest():
             status='ongoing',
             duration=1456,
             start_time=datetime(2020, 4, 5, 15, 25, 16),
-            identifier=Identifier('0937')
+            identifier=Identifier('0937'),
+            position=None
         )
         flight_repository.get_one_flight = Mock(
             return_value=flight
@@ -54,7 +55,8 @@ class AddNewPositionForAFlightTest():
             status='ongoing',
             duration=1456,
             start_time=datetime(2020, 4, 5, 15, 25, 16),
-            identifier=Identifier('0937')
+            identifier=Identifier('0937'),
+            position=None
         )
         flight_repository.get_one_flight = Mock(
             return_value=flight

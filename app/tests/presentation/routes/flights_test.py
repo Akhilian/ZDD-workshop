@@ -18,6 +18,7 @@ class GetAllFlightsTest:
         flight_model.duration = 257
         flight_model.status = 'ongoing'
         flight_model.identifier = 'G2VH'
+        flight_model.position = '-45.145,37.46724'
         db.session.add(flight_model)
 
         # When
@@ -32,6 +33,10 @@ class GetAllFlightsTest:
                 'duration': 257,
                 'status': 'ongoing',
                 'identifier': 'G2VH',
+                'position': {
+                    'latitude': -45.145,
+                    'longitude': 37.46724,
+                }
             }
         ]
 
@@ -43,6 +48,42 @@ class GetAllFlightsTest:
         # Then
         assert response.status_code == 200
         assert len(response.json) == 0
+
+class GetOneFlightTest:
+    @freeze_time("2019-02-05")
+    def test_when_there_is_a_flight(self, end_to_end):
+        # Given
+        flight_model = FlightModel()
+        flight_model.start_time = datetime.now()
+        flight_model.duration = 257
+        flight_model.status = 'ongoing'
+        flight_model.identifier = 'G2VH'
+        flight_model.position = '-45.145,37.46724'
+        db.session.add(flight_model)
+
+        # When
+        response = end_to_end.get('/flights/G2VH')
+
+        # Then
+        assert response.status_code == 200
+        assert response.json == {
+            'start_time': '2019-02-05T00:00:00',
+            'duration': 257,
+            'status': 'ongoing',
+            'identifier': 'G2VH',
+            'position': {
+                'latitude': -45.145,
+                'longitude': 37.46724,
+            }
+        }
+
+    def test_when_no_flight(self, end_to_end):
+        # Given
+        # When
+        response = end_to_end.get('/flights/ID')
+
+        # Then
+        assert response.status_code == 404
 
 class DeclareNewFlightTest:
     @freeze_time("2020-01-25")

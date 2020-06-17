@@ -11,7 +11,6 @@ from infrastructure.datasource.FlightDatasource import FlightDatasource
 from infrastructure.models.FlightModel import FlightModel
 from infrastructure.models.IdentifierModel import IdentifierModel
 from infrastructure.models.PlaneModel import PlaneModel
-from infrastructure.models.PositionModel import PositionModel
 
 
 class FlightDatasourceTest():
@@ -34,6 +33,7 @@ class FlightDatasourceTest():
             flight_model.status = 'ongoing'
             flight_model.start_time = datetime.now()
             flight_model.duration = 257
+            flight_model.position = "40.714,-74.006"
 
             database_session.add(flight_model)
             flight_datasource = FlightDatasource(database_session)
@@ -48,8 +48,32 @@ class FlightDatasourceTest():
             assert flight.status == 'ongoing'
             assert flight.duration == 257
             assert flight.start_time == datetime.now()
+            assert isinstance(flight.position, Position)
+            assert flight.position.latitude == 40.714
+            assert flight.position.longitude == -74.006
             assert isinstance(flight.identifier, Identifier)
             assert flight.identifier.value == '5835'
+
+        @freeze_time("2019-02-05")
+        def test_return_(self, database_session):
+            # Given
+            flight_model = FlightModel()
+            flight_model.identifier = '5835'
+            flight_model.status = 'ongoing'
+            flight_model.start_time = datetime.now()
+            flight_model.duration = 257
+            flight_model.position = None
+
+            database_session.add(flight_model)
+            flight_datasource = FlightDatasource(database_session)
+
+            # When
+            flights = flight_datasource.get_all_flights()
+
+            # Then
+            assert len(flights) == 1
+            flight = flights[0]
+            assert flight.position is None
 
     class GetOneFlightTest():
         @freeze_time("2019-02-05")
@@ -60,6 +84,7 @@ class FlightDatasourceTest():
             flight_model.status = 'ongoing'
             flight_model.start_time = datetime.now()
             flight_model.duration = 257
+            flight_model.position = "40.714,-74.006"
 
             database_session.add(flight_model)
             flight_datasource = FlightDatasource(database_session)
@@ -72,6 +97,9 @@ class FlightDatasourceTest():
             assert isinstance(flight, Flight)
             assert flight.status == 'ongoing'
             assert flight.duration == 257
+            assert isinstance(flight.position, Position)
+            assert flight.position.latitude == 40.714
+            assert flight.position.longitude == -74.006
             assert isinstance(flight.identifier, Identifier)
             assert flight.identifier.value == '3558'
             assert flight.start_time == datetime.now()
@@ -110,7 +138,8 @@ class FlightDatasourceTest():
                 identifier=Identifier('2VG5'),
                 status='ongoing',
                 start_time=datetime.now(),
-                duration=937
+                duration=937,
+                position=None
             )
 
             flight_datasource = FlightDatasource(database_session)
@@ -119,14 +148,10 @@ class FlightDatasourceTest():
             flight_datasource.save_new_position(flight, position)
 
             # Then
-            assert database_session.query(PositionModel).count() == 1
             flight = database_session.query(FlightModel) \
                 .filter(FlightModel.identifier == '2VG5').first()
-            assert len(flight.positions) == 1
-
-            position = flight.positions.pop()
-            assert position.latitude == 40.714
-            assert position.longitude == -74.006
+            assert flight is not None
+            assert flight.position == "40.714,-74.006"
 
     class SaveNewFlightTest():
         def test_save_flight_when_plane_exists(self, database_session):
@@ -144,7 +169,8 @@ class FlightDatasourceTest():
                 identifier=Identifier('2VG5'),
                 status='ongoing',
                 start_time=datetime.now(),
-                duration=937
+                duration=937,
+                position=None
             )
             plane = Plane(
                 identifier=PlaneIdentifier('FDY-198'),

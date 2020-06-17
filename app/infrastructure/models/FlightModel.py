@@ -11,8 +11,7 @@ class FlightModel(Base):
     start_time = Column(DateTime, nullable=True)
     duration = Column(Integer, nullable=True)
     status = Column(String, nullable=False)
+    position = Column(String, nullable=True)
 
     planeId = Column(Integer, ForeignKey('planes.id'), nullable=False)
     plane = relationship("PlaneModel", back_populates="flight")
-
-    positions = relationship("PositionModel", back_populates="flight")

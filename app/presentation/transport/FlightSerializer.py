@@ -18,4 +18,5 @@ class FlightSerializer():
             duration=flight_payload['duration'],
             start_time=flight_payload['start_time'],
             identifier=Identifier(flight_payload['identifier']),
+            position=None,
         )

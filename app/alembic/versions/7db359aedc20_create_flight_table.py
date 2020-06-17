@@ -25,6 +25,7 @@ def upgrade():
         sa.Column('start_time', sa.DateTime, nullable=True),
         sa.Column('duration', sa.Integer, nullable=True),
         sa.Column('status', sa.String, nullable=False),
+        sa.Column('position', sa.String, nullable=True),
         sa.Column('planeId', sa.Integer, ForeignKey('planes.id'))
     )
 

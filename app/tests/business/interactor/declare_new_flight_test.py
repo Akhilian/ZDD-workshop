@@ -23,7 +23,8 @@ class DeclareNewFlightTest():
             status='ongoing',
             duration=267,
             start_time=datetime(2020, 4, 5, 15, 25, 16),
-            identifier=Identifier('0937')
+            identifier=Identifier('0937'),
+            position=None
         )
 
 
@@ -51,7 +52,8 @@ class DeclareNewFlightTest():
             status='ongoing',
             duration=267,
             start_time=datetime(2020, 4, 5, 15, 25, 16),
-            identifier=Identifier('0937')
+            identifier=Identifier('0937'),
+            position=None
         )
 
         # When
