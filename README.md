@@ -4,7 +4,7 @@
 
 ## Contexte
 
-Depuis quelques mois, vous êtes responsable de maintenir et d'enrichir une API public qui permet de consulter **"DEFINIR LR THEME"**.
+Depuis quelques mois, vous êtes responsable de maintenir et d'enrichir une API publique qui permet de consulter la position d'avions en temps réel.
 
 - Avion
     - En vol
@@ -27,6 +27,14 @@ Depuis quelques mois, vous êtes responsable de maintenir et d'enrichir une API 
 
 
 Grâce à vos efforts, et l'appui de quelques sponsors, cette API connait un succès grandissant et le nombre de vos utilisateurs - et donc le nombre de requêtes - ne cesse de grandir. Ce qui était un petit projet aux ambitions modestes doit maintenant continuer à évoluer tout en assurant une disponibilité maximale.
+
+## Votre mission, puisque vous l'acceptez
+
+Aujourd'hui, le système conserve la position actuelle de l'avion au sein du vol. Un gros constructeur aérien exige l'intégration de deux modifications avant d'accepter d'utiliser le système. Il demande : 
+- La conservation de l'historique de la position de vol
+- L'ajout de l'altitude
+
+Actuellement, latitude et longitude sont stockés sous la forme d'une seule chaine de caractères. C'est aussi l'occasion de réduire cette dette en normalisant en deux champs de type flottant.
 
 ## Requirements
 * Docker (version 19.0)
