@@ -10,31 +10,6 @@ from presentation.connection import db
 
 Session = sessionmaker()
 
-@pytest.fixture(scope='session')
-def with_database():
-    postgres_container = PostgresContainer("postgres:10.12")
-    with postgres_container as postgres:
-        db_url = postgres.get_connection_url()
-
-        alembic_cfg = Config("alembic.ini")
-        alembic_cfg.attributes['sqlalchemy.url'] = db_url
-        command.upgrade(alembic_cfg, "head")
-
-        yield db_url
-
-
-@pytest.fixture(scope='session')
-def with_database():
-    postgres_container = PostgresContainer("postgres:10.12")
-    with postgres_container as postgres:
-        db_url = postgres.get_connection_url()
-
-        alembic_cfg = Config("alembic.ini")
-        alembic_cfg.attributes['sqlalchemy.url'] = db_url
-        command.upgrade(alembic_cfg, "head")
-
-        yield db_url
-
 
 @pytest.fixture(scope='session')
 def use_container_engine():
@@ -51,8 +26,6 @@ def use_container_engine():
             connection.close()
 
             yield db_url
-
-
 
 
 @pytest.fixture(scope='session')
@@ -73,7 +46,6 @@ def database_session(get_db_connection):
 
     session.close()
     transaction.rollback()
-
 
 
 @pytest.fixture(scope='function')
