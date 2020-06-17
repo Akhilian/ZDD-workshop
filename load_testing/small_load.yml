@@ -1,0 +1,39 @@
+config:
+  target: http://localhost
+  phases:
+    - duration: 300
+      #arrivalCount: 300
+      arrivalRate: 20
+  http:
+    pool: 20
+  processor: "./payload-generator.js"
+scenarios:
+  - flow:
+    - function: "generateTravelDetails"
+    - get:
+        url: "/status"
+    - think: 1
+    - post:
+        url: "/planes"
+        json:
+          identifier.code : "{{ plane.identifier }}"
+          number_of_places: "{{ plane.number_of_places }}"
+    - post:
+        url: "/planes/{{ plane.identifier }}/flights"
+        json:
+            "status": "ongoing"
+            "duration": 2456
+            "start_time": "{{ now }}"
+            "identifier": "{{ flight.identifier }}"
+    - loop:
+        - post:
+            url: "/flights/{{ flight.identifier }}/positions"
+            json:
+              "latitude": "{{ $loopElement.lat }}"
+              "longitude": "{{ $loopElement.long }}"
+        - think: 1
+        - get:
+            url: "/flights/{{ flight.identifier }}"
+        - think: 1
+      over: positions
+    - think: 1

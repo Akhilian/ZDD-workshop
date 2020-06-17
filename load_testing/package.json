@@ -1,0 +1,16 @@
+{
+  "name": "load_testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "payload-generator.js",
+  "scripts": {
+    "start": "npx artillery run ./small_load.yml -o results.json"
+  },
+  "author": "Adrien Saunier",
+  "license": "ISC",
+  "dependencies": {
+    "artillery": "^1.6.0",
+    "faker": "^4.1.0",
+    "nominatim-js": "^1.0.8"
+  }
+}
