@@ -2,6 +2,9 @@ resource "aws_vpc" "default" {
   cidr_block = "11.0.0.0/16"
   tags = {
     Name = "asa-zdd-vpc"
+  }
+}
+
 resource "aws_db_instance" "database" {
   engine         = "postgres"
   engine_version = "10.12"
