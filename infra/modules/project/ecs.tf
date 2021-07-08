@@ -5,7 +5,9 @@ resource "aws_ecs_task_definition" "api" {
     container_definitions   = templatefile("${path.module}/task_definition.json", {
         task_name       = "zdd-workshop-api-asa",
         task_image      = "akhilian/atelier-zdd-plane:latest",
-        database_uri    = "postgresql://postgres:postgres@postgres:5432/postgres"
+        database_uri    = aws_db_instance.database.endpoint,
+        log_group_region = "eu-west-1",
+        log_group_stream_prefix = "api_asa"
     })
     network_mode            = "awsvpc"
     requires_compatibilities = ["FARGATE"]
@@ -31,6 +33,7 @@ resource "aws_ecs_service" "api" {
     network_configuration {
         subnets         = [aws_subnet.subnet_zone_a.id, aws_subnet.subnet_zone_b.id]
         security_groups = [aws_security_group.private_ecs.id]
+        assign_public_ip = true
     }
 
     depends_on  = [aws_alb_listener.api]
@@ -45,7 +48,7 @@ resource "aws_security_group" "private_ecs" {
 resource "aws_security_group_rule" "private_ingress_from_port_80" {
     type              = "ingress"
     from_port         = 0
-    to_port           = 0
+    to_port           = 0code 
     protocol          = "tcp"
     cidr_blocks       = [aws_vpc.default.cidr_block]
     security_group_id = aws_security_group.private_ecs.id
@@ -54,7 +57,7 @@ resource "aws_security_group_rule" "private_ingress_from_port_80" {
 resource "aws_security_group_rule" "private_egress_to_any_port_in_vpc" {
     type              = "egress"
     from_port         = 0
-    to_port           = 0
+    to_port           = 65535
     protocol          = "tcp"
     cidr_blocks       = ["0.0.0.0/0"]
     security_group_id = aws_security_group.private_ecs.id
@@ -118,3 +121,13 @@ resource "aws_alb_listener" "api" {
         target_group_arn = aws_lb_target_group.api.arn
     }
 }
+
+# resource "aws_cloudwatch_log_group" "api" {
+#   name = "zdd-workshop-api-asa"
+
+#   tags = {
+#     Application = "API"
+#   }
+
+#   retention_in_days = 1
+# }

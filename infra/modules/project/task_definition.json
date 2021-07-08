@@ -14,7 +14,7 @@
         "environment": [
             {
                 "name": "DATABASE_URI",
-                "value": "${database_uri}"
+                "value": "postgresql://captain:captainsully@${database_uri}/plane_tracker"
             }
         ]
     }
