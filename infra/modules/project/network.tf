@@ -24,7 +24,7 @@ resource "aws_subnet" "subnet_zone_a" {
   availability_zone_id = "euw1-az1"
 
   tags = {
-    Name = "asa-zdd-subnet-b"
+    Name = "asa-zdd-subnet-a"
   }
 
   depends_on = [
